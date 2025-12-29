@@ -1,17 +1,46 @@
 package homework01
 
+import (
+	"fmt"
+	"strconv"
+)
+
 // 1. 只出现一次的数字
 // 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
 func SingleNumber(nums []int) int {
-	// TODO: implement
+	mapp := make(map[int]int, 10)
+
+	for _, num := range nums {
+		count, ok := mapp[num]
+		if ok {
+			mapp[num] = count + 1
+		} else {
+			mapp[num] = 1
+		}
+	}
+	for key, val := range mapp {
+		if val == 1 {
+			fmt.Println("出现次数为1的是：", key)
+		}
+	}
 	return 0
 }
 
 // 2. 回文数
 // 判断一个整数是否是回文数
-func IsPalindrome(x int) bool {
-	// TODO: implement
-	return false
+func IsPalindrome(num int) bool {
+
+	str := strconv.Itoa(num)
+	runes := []rune(str)
+	a := len(runes)/2 - 1
+	isFlag := true
+	for i := 0; i < a; i++ {
+		if runes[i] != runes[len(runes)-1-i] {
+			isFlag = false
+			break
+		}
+	}
+	return isFlag
 }
 
 // 3. 有效的括号
